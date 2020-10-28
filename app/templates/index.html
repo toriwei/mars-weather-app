@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <!--<link rel="shortcut icon" href="{{ url_for('static', filename='/images/favicon.png') }}">-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class = "h-25 jumbotron jumbotron-fluid">
+            <div class = "container">
+                <h1>7 Day Weather | Elysium Planitia, Mars</h1>
+                <lead>Data sourced from NASA's InSight Mars Weather Service API.</lead>
+            </div>
+        </div>
+        <img class = "center" id = "mars-map" src = "{{url_for('static', filename='/images/mars-map.jpg')}}" alt = "mars">
+        <div class = "container">
+            <div class = "row">
+                <div class = "col" id = "description">
+                On November 26, 2018, NASA landed the InSight rover on the Elysium Planitia, a plain near the Martian equator, to understand the formation of rocky planets.
+                The geophysical lander also sends weather summaries to the Mars Weather Service API for every day on Mars, known as a "sol".
+                A sol is approximately 40 minutes longer than an Earth day.
+                </div>
+            </div>
+        </div>
+    </br>
+        <div class = "weather_columns">
+        {% for sol in obj["sol_keys"] %}
+                <div class = "container">
+                    <div class = "row">
+                        <div class = "col">
+                            Day : {{obj[sol]["First_UTC"][5:10]}}-{{obj[sol]["First_UTC"][:4]}}
+                        </div>
+                        <div class = "col">
+                            Sol: {{sol}}
+                        </div>
+                        <div class = "col">
+                            Season: {{obj[sol]["Season"]}}
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class = "col">
+                            Avg Temp: {{obj[sol]["AT"]["av"] |round(1) }}°C
+                        </div>
+                        
+                        <div class = "col">
+                            Wind: {{obj[sol]["WD"]["most_common"]["compass_point"]}} {{obj[sol]["HWS"]["av"] |round(1)}} m/s
+                        </div>
+
+                        <div class = "col">
+                            Avg Pressure: {{obj[sol]["PRE"]["av"] | round(1) }} Pa
+                        </div>
+                    </div>
+                </div>
+                <br>
+            <p>
+                High of {{obj[sol]["AT"]["mx"] | round(1) }}°C. Low of {{obj[sol]["AT"]["mn"]  | round(1) }}°C. Winds {{obj[sol]["WD"]["most_common"]["compass_point"]}} of 
+                {{obj[sol]["HWS"]["mn"] | round(1) }} m/s to {{obj[sol]["HWS"]["mx"] | round(1) }} m/s. Pressures ranging from {{obj[sol]["PRE"]["mn"] | round(1) }} Pa to {{obj[sol]["PRE"]["mx"] | round(1) }} Pa.
+            </p>
+        </div>
+    <br>
+        {% endfor %} 
+
+    </body>
+</html>

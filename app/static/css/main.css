@@ -1,0 +1,39 @@
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+p{
+    text-align: center
+}
+
+.col{
+    background-color: #f9e3c5;
+    text-align: center;
+}
+
+.jumbotron{
+    background-color: #832119 !important;
+    color: #f9e3c5;
+}
+
+/*body{
+    background-color: #f9e3c5 !important;
+}
+*/
+
+#mars-map{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-bottom: 20px;
+}
+
+#description{
+    background-color: #8EB8E5;
+}
+
+#description::selection{
+    background: white;
+}
